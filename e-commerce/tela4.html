@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shopping Cart</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+
+        .cart-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .summary-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e6e6e6;
+        }
+
+        .footer-links a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 6px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        .icon-box {
+            font-size: 1.4rem;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Top Bar -->
+<header class="bg-white py-3 border-bottom">
+    <div class="container d-flex justify-content-between align-items-center">
+
+        <span class="fw-semibold">Your Company</span>
+
+        <nav class="d-flex gap-4">
+            <a href="#" class="text-decoration-none text-dark d-flex align-items-center">
+                <i class="bi bi-arrow-left me-2"></i>
+                Back to Shop
+            </a>
+
+            <a href="#" class="text-decoration-none text-dark d-flex align-items-center">
+                <i class="bi bi-question-circle me-2"></i>
+                Customer Support
+            </a>
+        </nav>
+    </div>
+</header>
+
+<!-- Page Title -->
+<section class="text-center mt-4">
+    <h2 class="fw-bold">Shopping Cart</h2>
+    <p class="text-muted">Shipping charges and discount codes are confirmed at checkout.</p>
+</section>
+
+<!-- Main Content -->
+<div class="container my-5">
+    <div class="row g-4">
+
+        <!-- Left side – cart items -->
+        <div class="col-lg-8">
+
+            <!-- Product 1 -->
+            <div class="cart-card mb-3">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <div class="bg-light rounded" style="width:100px; height:100px;"></div>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <h6 class="fw-semibold">Product Name</h6>
+                        <p class="text-muted small mb-1">Description, color, size</p>
+                        <p class="text-muted small">Shipping: 3–4 weeks</p>
+
+                        <div class="d-flex align-items-center gap-3 mt-2">
+                            <input type="number" class="form-control form-control-sm" style="width: 70px;" min="1" value="1">
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <p class="text-muted text-decoration-line-through small m-0">$95</p>
+                        <p class="fw-bold fs-5 m-0">$70</p>
+                        <span class="text-success small">You save 25%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="cart-card">
+                <div class="d-flex">
+                    <div class="me-3">
+                        <div class="bg-light rounded" style="width:100px; height:100px;"></div>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <h6 class="fw-semibold">Product Name</h6>
+                        <p class="text-muted small mb-1">Description, color, size</p>
+                        <p class="text-muted small">Shipping: 6 weeks</p>
+
+                        <input type="number" class="form-control form-control-sm mt-2" style="width: 70px;" min="1" value="2">
+                    </div>
+
+                    <div class="text-end">
+                        <p class="fw-bold fs-5">$54</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Safe & Easy Shopping -->
+            <section class="mt-5">
+                <h6 class="fw-bold mb-3">Safe & easy shopping</h6>
+
+                <div class="d-flex align-items-center py-2 border-bottom">
+                    <span class="icon-box">↩️</span>
+                    <span>Free returns for 30 days</span>
+                </div>
+
+                <div class="d-flex align-items-center py-2 border-bottom">
+                    <span class="icon-box">💳</span>
+                    <span>Convenient payment methods</span>
+                </div>
+
+                <div class="d-flex align-items-center py-2">
+                    <span class="icon-box">📦</span>
+                    <span>Deliver to home or pick-up point</span>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Right side – summary -->
+        <div class="col-lg-4">
+
+            <div class="summary-box mb-3">
+                <h6 class="fw-bold mb-3">Summary</h6>
+
+                <div class="d-flex justify-content-between mb-1">
+                    <span class="text-muted">Items in the cart</span>
+                    <span>$149.00</span>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="text-muted">Savings applied</span>
+                    <span class="text-success">- $25.00</span>
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-semibold">Total</span>
+                    <span class="fw-bold fs-4">$124.00</span>
+                </div>
+
+                <button class="btn btn-dark w-100">GO TO CHECKOUT</button>
+            </div>
+
+            <button class="btn btn-light w-100 border">DISCOUNT CODE / GIFT CARD →</button>
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white border-top py-5">
+    <div class="container">
+
+        <div class="row text-center text-md-start">
+
+            <div class="col-md-3 mb-4">
+                <h6 class="fw-bold">Need help?</h6>
+                <button class="btn btn-dark mt-2">Contact Us</button>
+            </div>
+
+            <div class="col-md-3 mb-4 footer-links">
+                <h6 class="fw-bold">Customer Support</h6>
+                <a href="#">Returns & Warranty</a>
+                <a href="#">Payments</a>
+                <a href="#">Shipping</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+
+            <div class="col-md-2 mb-4 footer-links">
+                <h6 class="fw-bold">Corporate Info</h6>
+                <a href="#">About Us</a>
+                <a href="#">Brands</a>
+                <a href="#">Affiliates</a>
+                <a href="#">Investors</a>
+                <a href="#">Cookies</a>
+            </div>
+
+            <div class="col-md-2 mb-4 footer-links">
+                <h6 class="fw-bold">Gift Card</h6>
+                <a href="#">Buy Gift Cards</a>
+                <a href="#">Redeem Card</a>
+            </div>
+
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold">Location</h6>
+                <span>🇺🇸 United States</span>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <small class="text-muted">© 2025 Your Company</small>
+        </div>
+
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

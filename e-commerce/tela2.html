@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Category — E-shop</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    /* ---------- Vars ---------- */
+    :root{
+      --muted:#7a7a7a;
+      --muted-2:#a9a9a9;
+      --border:#e7e7e7;
+      --brand:#333333;
+      --card-bg:#fafafa;
+      --accent:#f1f1f1;
+      --shadow: 0 6px 18px rgba(20,20,20,0.04);
+    }
+
+    /* ---------- Base ---------- */
+    body{
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: var(--brand);
+      background: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container-lg { max-width:1100px; }
+
+    /* ---------- Top promo bar ---------- */
+    .promo-bar{
+      background:#333;
+      color:#fff;
+      font-size:13px;
+      padding:6px 0;
+      text-align:center;
+    }
+
+    /* ---------- Header ---------- */
+    header.site-header{
+      border-bottom:1px solid var(--border);
+      background:#fff;
+    }
+    .brand {
+      font-weight:700;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+    }
+    .brand .logo-circle{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:var(--accent);
+      display:inline-block;
+      border:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:var(--muted);
+    }
+
+    .search-bar {
+      max-width:540px;
+      width:100%;
+    }
+    .search-input{
+      border-radius:28px;
+      border:1px solid var(--border);
+      padding-left:22px;
+      padding-right:22px;
+      height:44px;
+      background:#fff;
+    }
+
+    .nav-links {
+      gap:14px;
+    }
+    .icon-btn {
+      width:38px; height:38px;
+      border-radius:8px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid transparent;
+    }
+
+    /* ---------- Breadcrumb / Title ---------- */
+    .breadcrumb-custom{
+      padding-top:24px;
+      padding-bottom:8px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    h1.category-title{
+      font-size:28px;
+      font-weight:700;
+      margin-bottom:20px;
+    }
+
+    /* ---------- Subcategories row ---------- */
+    .subcats {
+      display:flex;
+      gap:16px;
+      overflow:auto;
+      padding-bottom:12px;
+    }
+    .subcat {
+      width:120px;
+      min-width:120px;
+      text-align:center;
+      background: #fafafa;
+      padding:16px;
+      border-radius:10px;
+      border:1px solid var(--border);
+    }
+    .subcat .thumb {
+      width:100%;
+      height:72px;
+      background:var(--accent);
+      border-radius:8px;
+      margin-bottom:8px;
+    }
+    .subcat small { color:var(--muted-2); }
+
+    /* ---------- Filters ---------- */
+    .filters-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin:18px 0;
+    }
+    .filter-pill {
+      border-radius:8px;
+      padding:8px 12px;
+      border:1px solid var(--border);
+      background:#fff;
+      font-size:14px;
+    }
+    .filter-pill.active{
+      background:#333;
+      color:#fff;
+      border-color:#333;
+    }
+
+    /* ---------- Product grid ---------- */
+    .products-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .product-grid { 
+      display:grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap:28px;
+    }
+    @media (max-width:1200px){ .product-grid { grid-template-columns: repeat(4,1fr);} }
+    @media (max-width:992px){ .product-grid { grid-template-columns: repeat(3,1fr);} }
+    @media (max-width:768px){ .product-grid { grid-template-columns: repeat(2,1fr);} }
+    @media (max-width:480px){ .product-grid { grid-template-columns: 1fr; } }
+
+    .product-card {
+      background:transparent;
+      border-radius:8px;
+    }
+    .product-thumb {
+      aspect-ratio: 3/4;
+      background:var(--accent);
+      border-radius:8px;
+      position:relative;
+      box-shadow: var(--shadow);
+      border:1px solid var(--border);
+    }
+    .badge-new {
+      position:absolute;
+      top:10px; left:10px;
+      background:#222; color:#fff;
+      padding:4px 8px; border-radius:6px;
+      font-size:12px;
+    }
+    .product-info { margin-top:10px; }
+    .product-name { font-weight:600; font-size:14px; }
+    .product-meta { color:var(--muted-2); font-size:13px; margin-top:4px; }
+    .product-price { margin-top:8px; font-weight:700; }
+    .product-old { text-decoration:line-through; color:var(--muted-2); font-weight:500; margin-right:8px; }
+    .product-save { color:#1b8a3e; font-weight:600; }
+
+    /* ---------- Show more / pagination ---------- */
+    .show-more-wrap { text-align:center; margin-top:28px; }
+    .progress-mini {
+      height:6px;
+      background:var(--accent);
+      border-radius:99px;
+      overflow:hidden;
+      margin:10px auto;
+      width:200px;
+    }
+    .progress-mini > i { display:block; height:100%; width:35%; background:#333; }
+
+    /* ---------- Reviews / rating ---------- */
+    .reviews {
+      display:grid;
+      grid-template-columns: repeat(4,1fr);
+      gap:24px;
+      margin-top:48px;
+      margin-bottom:36px;
+    }
+    @media (max-width:992px){ .reviews{ grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:576px){ .reviews{ grid-template-columns:1fr; } }
+    .review-card { background: #fff; border-radius:8px; padding:18px; border:1px solid var(--border); }
+
+    /* ---------- Footer ---------- */
+    footer.site-footer { border-top:1px solid var(--border); padding-top:36px; padding-bottom:36px; margin-top:48px; background:#fff; }
+    .footer-links a { color:var(--muted); display:block; margin-bottom:8px; font-size:14px; }
+    .contact-cta .btn-dark { border-radius:8px; padding:10px 20px; }
+
+    /* ---------- Misc ---------- */
+    .tiny { font-size:13px; color:var(--muted); }
+    .muted { color:var(--muted); }
+    .divider { height:1px; background:var(--border); margin:18px 0; }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden reference image (local file you uploaded) -->
+  <!-- Usando o caminho do arquivo enviado: /mnt/data/tela2.png -->
+  <img src="/mnt/data/tela2.png" alt="referencia" style="display:none" />
+
+  <!-- Promo bar -->
+  <div class="promo-bar">
+    Free shipping on all orders over $200. For a limited time only.
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container container-lg d-flex align-items-center justify-content-between py-3">
+      <div class="d-flex align-items-center gap-3">
+        <div class="brand">
+          <span class="logo-circle">@</span>
+          <span>Your Company</span>
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-3 flex-grow-1 justify-content-center">
+        <form class="search-bar w-100" role="search" aria-label="Pesquisar produtos">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0" id="search-addon">
+              <i class="bi bi-search"></i>
+            </span>
+            <input class="form-control search-input border-start-0" placeholder="Search products..." aria-label="Search products" />
+          </div>
+        </form>
+      </div>
+
+      <div class="d-flex align-items-center nav-links">
+        <a href="#" class="tiny muted me-3">Products</a>
+        <a href="#" class="tiny muted me-3">SALE</a>
+        <a href="#" class="tiny muted me-3">Inspiration</a>
+
+        <button class="icon-btn btn btn-light" title="Wishlist">
+          <i class="bi bi-heart"></i>
+        </button>
+
+        <button class="icon-btn btn btn-light" title="Login">
+          <i class="bi bi-person"></i>
+        </button>
+
+        <button class="icon-btn btn btn-light" title="Cart">
+          <i class="bi bi-cart"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subnav thin -->
+  <div class="border-bottom">
+    <div class="container container-lg d-flex justify-content-between align-items-center py-2">
+      <div class="tiny muted">Shipping</div>
+      <div class="tiny muted">Returns & Warranty</div>
+      <div class="tiny muted">Contact</div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb + Title -->
+  <main class="container container-lg">
+    <div class="breadcrumb-custom mt-4">
+      <a href="#" class="muted"><i class="bi bi-arrow-left me-2"></i>All Products</a>
+    </div>
+
+    <h1 class="category-title">Category Name</h1>
+
+    <!-- Subcategories -->
+    <div class="subcats mb-3" role="list" aria-label="Subcategorias">
+      <div class="subcat" role="listitem">
+        <div class="thumb"></div>
+        <div class="muted">Subcategory</div>
+      </div>
+      <div class="subcat" role="listitem">
+        <div class="thumb"></div>
+        <div class="muted">Subcategory</div>
+      </div>
+      <div class="subcat" role="listitem">
+        <div class="thumb"></div>
+        <div class="muted">Subcategory</div>
+      </div>
+      <div class="subcat" role="listitem">
+        <div class="thumb"></div>
+        <div class="muted">Subcategory</div>
+      </div>
+      <div class="subcat" role="listitem">
+        <div class="thumb"></div>
+        <div class="muted">Subcategory</div>
+      </div>
+      <div class="subcat" role="listitem">
+        <div class="thumb"></div>
+        <div class="muted">Subcategory</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Filters -->
+    <div class="filters-row">
+      <div class="filter-pill"><i class="bi bi-funnel"></i> Sort by</div>
+      <div class="filter-pill active">New Arrivals</div>
+      <div class="filter-pill">Sales</div>
+      <div class="filter-pill">Color ▾</div>
+      <div class="filter-pill">Size ▾</div>
+      <div class="filter-pill">Brand ▾</div>
+      <div class="filter-pill">All filters <i class="bi bi-sliders ms-2"></i></div>
+    </div>
+
+    <!-- Active filter tags -->
+    <div class="mb-3">
+      <span class="filter-pill">New Arrivals <i class="bi bi-x ms-1"></i></span>
+    </div>
+
+    <!-- Products header -->
+    <div class="products-header">
+      <div class="tiny muted">28 Products</div>
+      <div class="tiny"><a href="#" class="muted">Show 10 products ▾</a></div>
+    </div>
+
+    <!-- Product grid -->
+    <section id="product-area">
+      <div id="product-grid" class="product-grid" aria-live="polite">
+        <!-- Cards rendered by JS -->
+      </div>
+
+      <!-- Show more / progress -->
+      <div class="show-more-wrap">
+        <div class="tiny muted mb-2" id="showingText">Showing 10 of 28 products</div>
+        <div class="progress-mini"><i></i></div>
+        <button id="showMoreBtn" class="btn btn-dark mt-3" aria-expanded="false">SHOW MORE</button>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="reviews" aria-label="Customer reviews">
+      <div class="review-card">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div>
+            <div style="font-weight:700">Our Rating</div>
+            <div class="tiny muted">Based on 2,035 reviews</div>
+          </div>
+          <div style="font-size:20px; font-weight:700">★ ★ ★ ★ ★</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="fw-semibold">Great value and quality</div>
+        <div class="tiny muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div class="tiny muted mt-2">John Doe, 6 days ago</div>
+      </div>
+
+      <div class="review-card">
+        <div class="fw-semibold">Beautiful design!</div>
+        <div class="tiny muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div class="tiny muted mt-2">John Deo, 6 days ago</div>
+      </div>
+
+      <div class="review-card">
+        <div class="fw-semibold">Exactly what I wanted</div>
+        <div class="tiny muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+        <div class="tiny muted mt-2">John Doe, 6 days ago</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-lg">
+      <div class="row">
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold">Need help?</h6>
+          <div class="contact-cta mt-3">
+            <button class="btn btn-dark">Contact Us</button>
+          </div>
+        </div>
+
+        <div class="col-md-3 mb-4">
+          <h6 class="fw-bold">Customer Support</h6>
+          <div class="footer-links">
+            <a href="#">Returns & Warranty</a>
+            <a href="#">Payments</a>
+            <a href="#">Shipping</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+          </div>
+        </div>
+
+        <div class="col-md-2 mb-4">
+          <h6 class="fw-bold">Corporate Info</h6>
+          <div class="footer-links">
+            <a href="#">About Us</a>
+            <a href="#">Brands</a>
+            <a href="#">Affiliates</a>
+            <a href="#">Investors</a>
+            <a href="#">Cookies</a>
+          </div>
+        </div>
+
+        <div class="col-md-2 mb-4">
+          <h6 class="fw-bold">Gift Card</h6>
+          <div class="footer-links">
+            <a href="#">Buy Gift Cards</a>
+            <a href="#">Redeem Card</a>
+          </div>
+        </div>
+
+        <div class="col-md-2 mb-4 text-end">
+          <h6 class="fw-bold">Location</h6>
+          <div class="tiny muted">🇺🇸 United States</div>
+          <div class="mt-3">
+            <i class="bi bi-instagram me-2"></i>
+            <i class="bi bi-facebook me-2"></i>
+            <i class="bi bi-youtube me-2"></i>
+            <i class="bi bi-twitter"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center tiny muted mt-4">
+        © 2025 Your Company
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /*******************************************************************
+     * Script: render products (28 items) + "show more" behavior
+     * - This keeps the HTML file manageable (scripts generate the grid)
+     * - Initially shows 10 products, clicking "SHOW MORE" reveals all
+     *******************************************************************/
+    (function(){
+      const totalProducts = 28;
+      const initiallyVisible = 10;
+      const productGrid = document.getElementById('product-grid');
+      const showMoreBtn = document.getElementById('showMoreBtn');
+      const showingText = document.getElementById('showingText');
+
+      // Small helper to create a card element
+      function createProductCard(idx){
+        const wrap = document.createElement('article');
+        wrap.className = 'product-card';
+        wrap.setAttribute('role','article');
+        wrap.setAttribute('aria-label','Product ' + (idx+1));
+
+        const thumb = document.createElement('div');
+        thumb.className = 'product-thumb';
+        // add "NEW" badge for some items
+        if ((idx % 6) === 0) {
+          const b = document.createElement('div');
+          b.className = 'badge-new';
+          b.textContent = 'NEW';
+          thumb.appendChild(b);
+        }
+
+        // product info
+        const info = document.createElement('div');
+        info.className = 'product-info';
+        info.innerHTML = `
+          <div class="product-name">Product Name</div>
+          <div class="product-meta">Description, color, size</div>
+          <div class="d-flex align-items-baseline">
+            <div class="product-price">$95</div>
+          </div>
+        `;
+
+        // assemble
+        wrap.appendChild(thumb);
+        wrap.appendChild(info);
+
+        return wrap;
+      }
+
+      // render all products but hide after initiallyVisible
+      for (let i=0;i<totalProducts;i++){
+        const card = createProductCard(i);
+        if (i >= initiallyVisible) {
+          card.style.display = 'none';
+          card.classList.add('hidden-product');
+        }
+        productGrid.appendChild(card);
+      }
+
+      // update showing text
+      function updateShowingText(visibleCount){
+        showingText.textContent = `Showing ${visibleCount} of ${totalProducts} products`;
+      }
+      updateShowingText(initiallyVisible);
+
+      // Show more toggle
+      let expanded = false;
+      showMoreBtn.addEventListener('click', function(){
+        const hidden = document.querySelectorAll('.hidden-product');
+        if (!expanded){
+          hidden.forEach(n => { n.style.display = ''; n.classList.remove('hidden-product'); });
+          expanded = true;
+          showMoreBtn.textContent = 'SHOW LESS';
+          showMoreBtn.setAttribute('aria-expanded','true');
+          updateShowingText(totalProducts);
+          // expand progress bar visually
+          document.querySelector('.progress-mini > i').style.width = '100%';
+        } else {
+          // hide back to initial
+          const cards = productGrid.children;
+          for (let i=0;i<cards.length;i++){
+            if (i >= initiallyVisible){
+              cards[i].style.display = 'none';
+              cards[i].classList.add('hidden-product');
+            }
+          }
+          expanded = false;
+          showMoreBtn.textContent = 'SHOW MORE';
+          showMoreBtn.setAttribute('aria-expanded','false');
+          updateShowingText(initiallyVisible);
+          document.querySelector('.progress-mini > i').style.width = '35%';
+          // scroll up to product area
+          window.scrollTo({ top: document.getElementById('product-area').offsetTop - 60, behavior: 'smooth' });
+        }
+      });
+
+    })();
+  </script>
+</body>
+</html>
